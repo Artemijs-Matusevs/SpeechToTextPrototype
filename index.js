@@ -1,5 +1,14 @@
 //Imports
 import express from "express";
+import { initWhisper } from "whisper-onnx-speech-to-text";
+
+const whisper = await initWhisper("base.en");
+
+const transcript = await whisper.transcribe("UserData/Audio/test.wav");
+console.log(transcript);
+console.log(transcript.chunks[10].timestamp);
+
+
 
 const app = express()
 const port = 3000;
