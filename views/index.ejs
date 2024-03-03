@@ -8,5 +8,9 @@
 </head>
 <body>
     <h1> HELLO WORLD </h1>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="video" accept="video/*" required>
+        <button type="submit"> Upload Video </button>
+    </form>
 </body>
 </html>
