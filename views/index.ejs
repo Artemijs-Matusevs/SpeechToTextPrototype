@@ -7,10 +7,18 @@
     <title>Speech to Text</title>
 </head>
 <body>
-    <h1> HELLO WORLD </h1>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="video" accept="video/*" required>
-        <button type="submit"> Upload Video </button>
-    </form>
+    <h1> Video Transcriber Prototype </h1>
+    <% if (!locals.text) { %>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="video" accept="video/*" required>
+            <button type="submit"> Upload Video </button>
+        </form>
+    <% } else{ %>
+    <div class="transcript">
+        <% text.forEach(function(item) { %>
+            <p> <%= item.text %> at <%= item.timestamp %> </p>
+        <% }) %>
+    </div>
+    <% } %>
 </body>
 </html>

@@ -4,11 +4,7 @@ import { initWhisper } from "whisper-onnx-speech-to-text";
 import multer from "multer";
 import ffmpeg from "fluent-ffmpeg";
 
-/*const whisper = await initWhisper("base.en");
-
-const transcript = await whisper.transcribe("UserData/Audio/test.wav");
-console.log(transcript);
-console.log(transcript.chunks[10].timestamp);*/
+const whisper = await initWhisper("base.en");
 
 
 const app = express()
@@ -47,7 +43,8 @@ app.post("/upload", upload.single('video'), async function (req, res) {
 
     try {
         await convertVideoToWav(inputVideoPath, outputAudioPath);
-        res.send('File converted to WAV format!');
+        const transcript = await whisper.transcribe(outputAudioPath);
+        res.render("index.ejs", { text: transcript.chunks })
     } catch (error) {
         res.status(500).send('Error during conversion');
     }
